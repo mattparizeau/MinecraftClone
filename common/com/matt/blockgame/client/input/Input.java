@@ -3,6 +3,10 @@ package com.matt.blockgame.client.input;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+/**
+ * Class used to check for user input
+ * @author Matthieu Parizeau
+ */
 public final class Input {
 	
 	public static final int MAX_KEYS = 256;
@@ -58,6 +62,9 @@ public final class Input {
 	public static boolean[] keys = new boolean[MAX_KEYS];
 	public static boolean[] mouse_buttons = new boolean[MAX_MOUSE_BTN];
 	
+	/**
+	 * Update key and mouse button states
+	 */
 	public static void update()
 	{
 		for (int i = 0; i < keys.length; i++)
@@ -67,31 +74,61 @@ public final class Input {
 			mouse_buttons[i] = getMouseButton(i);
 	}
 	
+	/**
+	 * Returns whether the specified key is being held
+	 * @param keyCode the key to check
+	 * @return whether or not the specified key is being held
+	 */
 	public static boolean getKey(int keyCode)
 	{
 		return Keyboard.isKeyDown(keyCode);
 	}
 	
+	/**
+	 * Returns whether the specified key was pressed
+	 * @param keyCode the key to check
+	 * @return whether or not the specified key was pressed
+	 */
 	public static boolean getKeyDown(int keyCode)
 	{
 		return getKey(keyCode) && !keys[keyCode];
 	}
 	
+	/**
+	 * Returns whether the specified key was released
+	 * @param keyCode the key to check
+	 * @return whether or not the specified key was released
+	 */
 	public static boolean getKeyUp(int keyCode)
 	{
 		return !getKey(keyCode) && keys[keyCode];
 	}
 	
+	/**
+	 * Returns whether the specified mouse button is being held
+	 * @param button the mouse button to check
+	 * @return whether or not the specified mouse button is being held
+	 */
 	public static boolean getMouseButton(int button)
 	{
 		return Mouse.isButtonDown(button);
 	}
 	
+	/**
+	 * Returns whether the specified mouse button was pressed
+	 * @param button the mouse button to check
+	 * @return whether or not the specified mouse button was pressed
+	 */
 	public static boolean getMouseDown(int button)
 	{
 		return getMouseButton(button) && !mouse_buttons[button];
 	}
 	
+	/**
+	 * Returns whether the specified mouse button was released
+	 * @param button the mouse button to check
+	 * @return whether or not the specified mouse button was released
+	 */
 	public static boolean getMouseUp(int button)
 	{
 		return !getMouseButton(button) && mouse_buttons[button];
