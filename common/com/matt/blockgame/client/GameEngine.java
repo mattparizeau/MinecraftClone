@@ -64,6 +64,11 @@ public final class GameEngine {
 		this.window.dispose();
 	}
 	
+	public BlockGame getGame()
+	{
+		return this.game;
+	}
+	
 	public Window getWindow()
 	{
 		return this.window;

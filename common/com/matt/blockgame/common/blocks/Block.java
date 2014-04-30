@@ -1,5 +1,6 @@
 package com.matt.blockgame.common.blocks;
 
+import com.matt.blockgame.client.render.MaterialList;
 import com.matt.blockgame.common.blocks.materials.Material;
 import com.matt.blockgame.common.registry.RegistryNamespaced;
 import com.matt.blockgame.common.registry.RegistryNamespacedDefault;
@@ -22,7 +23,7 @@ public class Block {
 	{
 		Block.registerBlock("air", new BlockAir());
 		Block.registerBlock("stone", new Block(Material.rock).setTextureName("stone"));
-		Block.registerBlock("dirt", new Block(Material.dirt));
+		Block.registerBlock("dirt", new Block(Material.dirt).setColor(MaterialList.yellow.getColor()));
 	}
 	
 	protected Material material;
@@ -59,6 +60,11 @@ public class Block {
 	}
 	
 	public boolean canCollide()
+	{
+		return true;
+	}
+	
+	public boolean isVisible()
 	{
 		return true;
 	}

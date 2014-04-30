@@ -13,4 +13,10 @@ public class BlockAir extends Block {
 		return false;
 	}
 	
+	@Override
+	public boolean isVisible()
+	{
+		return false;
+	}
+	
 }
