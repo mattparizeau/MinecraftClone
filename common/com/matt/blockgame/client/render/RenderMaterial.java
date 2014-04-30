@@ -5,10 +5,16 @@ import org.lwjgl.opengl.GL11;
 public class RenderMaterial {
 	
 	private int color;
+	private Texture texture;
 	
 	public RenderMaterial(int color)
 	{
-		this.color = color;
+		this(color, null);
+	}
+	
+	public RenderMaterial(Texture texture)
+	{
+		this(0xFFFFFF, texture);
 	}
 	
 	public RenderMaterial(int red, int green, int blue)
@@ -18,10 +24,26 @@ public class RenderMaterial {
 	
 	public RenderMaterial(int red, int green, int blue, int alpha)
 	{
+		this(red, green, blue, alpha, null);
+	}
+	
+	public RenderMaterial(int color, Texture texture)
+	{
+		this.color = color;
+		this.texture = texture;
+	}
+	
+	public RenderMaterial(int red, int green, int blue, Texture texture)
+	{
+		this(red, green, blue, 255, texture);
+	}
+	
+	public RenderMaterial(int red, int green, int blue, int alpha, Texture texture)
+	{
 		this(((alpha & 0xFF) << 24) | 
 				((red    & 0xFF) << 16) |
 				((green  & 0xFF) << 8)  |
-				((blue   & 0xFF) << 0));
+				((blue   & 0xFF) << 0), texture);
 	}
 	
 	public int getColor()
@@ -49,9 +71,23 @@ public class RenderMaterial {
 		return (byte)((this.color >> 0) & 0xFF);
 	}
 	
+	public Texture getTexture()
+	{
+		return this.texture;
+	}
+	
 	public void bind()
 	{
 		GL11.glColor4ub(getRed(), getGreen(), getBlue(), getAlpha());
+		if (this.texture != null)
+			this.texture.bind();
+	}
+	
+	public void unbind()
+	{
+		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		if (this.texture != null)
+			this.texture.unbind();
 	}
 	
 }

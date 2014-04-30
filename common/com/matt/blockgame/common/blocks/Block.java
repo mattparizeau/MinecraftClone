@@ -21,7 +21,7 @@ public class Block {
 	public static final void initBlocks()
 	{
 		Block.registerBlock("air", new BlockAir());
-		Block.registerBlock("stone", new Block(Material.rock).setColor(0x777777));
+		Block.registerBlock("stone", new Block(Material.rock).setTextureName("stone"));
 		Block.registerBlock("dirt", new Block(Material.dirt));
 	}
 	

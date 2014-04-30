@@ -25,9 +25,14 @@ public class BlockGame {
 		
 	}
 	
+	float rot = 0;
+	
 	public void update()
 	{
-		
+		rot+=0.05;
+		if (rot > 360)
+			rot = 0;
+		block.getTransform().getRotation().set(rot, 0, 1, 0);
 	}
 	
 	public void render()
