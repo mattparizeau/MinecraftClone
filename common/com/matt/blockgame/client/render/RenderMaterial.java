@@ -78,6 +78,7 @@ public class RenderMaterial {
 	
 	public void bind()
 	{
+		this.unbind();
 		GL11.glColor4ub(getRed(), getGreen(), getBlue(), getAlpha());
 		if (this.texture != null)
 			this.texture.bind();
@@ -86,8 +87,7 @@ public class RenderMaterial {
 	public void unbind()
 	{
 		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-		if (this.texture != null)
-			this.texture.unbind();
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 	}
 	
 }

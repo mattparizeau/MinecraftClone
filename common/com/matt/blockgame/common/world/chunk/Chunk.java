@@ -17,16 +17,18 @@ public class Chunk {
 	
 	public Chunk generate()
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 16; i++)
 		{
-			for (int j = 0; j < 2; j++)
+			for (int j = 0; j < 16; j++)
 			{
-				for (int k = 0; k < 3; k++)
+				for (int k = 0; k < 16; k++)
 				{
-					if (j == 0)
-						this.setBlock(i, j, k, Blocks.stone);
-					else
+					if (j == 15)
+						this.setBlock(i, j, k, Blocks.grass);
+					else if (j > 11)
 						this.setBlock(i, j, k, Blocks.dirt);
+					else
+						this.setBlock(i, j, k, Blocks.stone);
 				}
 			}
 		}

@@ -1,13 +1,12 @@
 package com.matt.blockgame.common.math;
 
 import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
 
 public class Transform {
 	
 	protected Vector3f position;
 	protected Vector3f scale;
-	protected Vector4f rotation;
+	protected Vector3f rotation;
 	
 	public Transform()
 	{
@@ -21,10 +20,10 @@ public class Transform {
 	
 	public Transform(Vector3f position, Vector3f scale)
 	{
-		this(position, scale, new Vector4f());
+		this(position, scale, new Vector3f());
 	}
 	
-	public Transform(Vector3f position, Vector3f scale, Vector4f rotation)
+	public Transform(Vector3f position, Vector3f scale, Vector3f rotation)
 	{
 		this.position = position;
 		this.scale = scale;
@@ -51,12 +50,12 @@ public class Transform {
 		this.scale = scale;
 	}
 	
-	public Vector4f getRotation()
+	public Vector3f getRotation()
 	{
 		return this.rotation;
 	}
 	
-	public void setRotation(Vector4f rotation)
+	public void setRotation(Vector3f rotation)
 	{
 		this.rotation = rotation;
 	}

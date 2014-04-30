@@ -2,42 +2,60 @@ package com.matt.blockgame.client.render;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
+import java.util.HashMap;
 
 import com.matt.blockgame.client.BlockObject;
-import com.matt.blockgame.client.GameEngine;
 import com.matt.blockgame.common.blocks.Block;
 import com.matt.blockgame.common.world.World;
 
 public final class RenderBlocks {
 	
+	public static HashMap<Block, Integer> lists = new HashMap<Block, Integer>();
+	private static boolean initialized = false;
+	
 	public static final void renderBlock(World world, Block block, int x, int y, int z)
 	{
+		if (!initialized)
+			initModels();
+		
 		if (block == null || !block.isVisible())
 			return;
-		BlockObject blockObject = new BlockObject(block);
-		blockObject.getTransform().getPosition().set(x, y, z);
+		//BlockObject blockObject = new BlockObject(block);
+		//blockObject.getTransform().getPosition().set(x, y, z);
+		RenderHelper.resetCamera();
+		glTranslatef(x, y, z);
+		glCallList(lists.get(block));
 		
-		RenderBlocks.renderBlock(world, blockObject);
+		//return RenderBlocks.getRenderBlock(world, blockObject);
 	}
 	
-	public static final void renderBlock(World world, BlockObject blockObject)
+	/*public static final int getRenderBlock(World world, BlockObject blockObject)
 	{
-		RenderHelper.resetCamera();
+		//RenderHelper.resetCamera();
 		Vector3f pos = blockObject.getTransform().getPosition();
-		Vector4f rot = blockObject.getTransform().getRotation();
+		//Vector4f rot = blockObject.getTransform().getRotation();
 		//glTranslatef(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F);
 		//glTranslatef(pos.getX(), pos.getY(), pos.getZ());
-		glTranslatef(pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
+		//glTranslatef(pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
 		//glRotatef(rot.getX(), rot.getY(), rot.getZ(), rot.getW());
 		//glTranslatef(-0.5F, -0.5F, -0.5F);
-		RenderBlocks.renderStandardBlock(blockObject.getMaterial(), new FaceMeta().calculate(world, (int)pos.getX(), (int)pos.getY(), (int)pos.getZ()));
-	}
+		
+		return (RenderBlocks.getList(blockObject, new FaceMeta().calculate(world, (int)pos.getX(), (int)pos.getY(), (int)pos.getZ())));
+	}*/
 	
-	public static final void renderStandardBlock(BlockMaterial material, FaceMeta meta)
+	public static final int getList(BlockMaterial material, FaceMeta meta)
 	{
+		int displayList = glGenLists(1);
+		glNewList(displayList, GL_COMPILE);
+		
+		//RenderHelper.resetCamera();
+		//Vector3f pos = blockObject.getTransform().getPosition();
+		//Vector4f rot = blockObject.getTransform().getRotation();
+		//glTranslatef(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F);
+		//glTranslatef(pos.getX(), pos.getY(), pos.getZ());
+		//glTranslatef(pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
 		//System.out.println("Meta: " + meta.toString());
+		//BlockMaterial material = blockObject.getMaterial();
 		//if (true)
 		//	return;
 		glBegin(GL_QUADS);
@@ -121,6 +139,23 @@ public final class RenderBlocks {
 			}
 		}
 		glEnd();
+		glEndList();
+		
+		return displayList;
+	}
+	
+	public static final void initModels()
+	{
+		for (Object o : Block.registry)
+		{
+			Block block = (Block)o;
+			
+			BlockMaterial material = new BlockObject(block).getMaterial();
+			
+			lists.put(block, getList(material, new FaceMeta()));
+		}
+		
+		initialized = true;
 	}
 	
 }

@@ -4,9 +4,9 @@ import com.matt.blockgame.client.render.BlockMaterial;
 import com.matt.blockgame.client.render.RenderMaterial;
 import com.matt.blockgame.client.render.Texture;
 import com.matt.blockgame.common.blocks.Block;
-import com.matt.blockgame.common.game.GameObject;
+import com.matt.blockgame.common.game.Entity;
 
-public class BlockObject extends GameObject {
+public class BlockObject extends Entity {
 	
 	protected Block block;
 	protected BlockMaterial material;

@@ -23,7 +23,8 @@ public class Block {
 	{
 		Block.registerBlock("air", new BlockAir());
 		Block.registerBlock("stone", new Block(Material.rock).setTextureName("stone"));
-		Block.registerBlock("dirt", new Block(Material.dirt).setColor(MaterialList.yellow.getColor()));
+		Block.registerBlock("dirt", new Block(Material.dirt).setTextureName("stone").setColor(MaterialList.yellow.getColor()));
+		Block.registerBlock("grass", new Block(Material.dirt).setTextureName("stone").setColor(MaterialList.green.getColor()));
 	}
 	
 	protected Material material;

@@ -26,6 +26,9 @@ public class World {
 		this.random = new Random(seed);
 		this.chunks = new HashMap<ChunkLocation, Chunk>();
 		this.createChunkAt(0, 0);
+		this.createChunkAt(0, 1);
+		this.createChunkAt(1, 0);
+		this.createChunkAt(1, 1);
 	}
 	
 	public void createChunkAt(int x, int z)

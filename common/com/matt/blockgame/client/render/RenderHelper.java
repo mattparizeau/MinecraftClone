@@ -5,7 +5,6 @@ import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
 import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
 
 public final class RenderHelper {
 	
@@ -24,7 +23,9 @@ public final class RenderHelper {
 	public static final void initOpenGL(Window window, float fov)
 	{
 		//glEnable(GL_CULL_FACE);
-		//glCullFace(GL_FRONT);
+		//glCullFace(GL_BACK);
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_COLOR_ARRAY);
 		glEnable(GL_TEXTURE_2D);
 		glShadeModel(GL_SMOOTH);
 		glClearColor(0, 0, 0, 0);
@@ -47,9 +48,12 @@ public final class RenderHelper {
 	{
 		glLoadIdentity();
 		Vector3f position = RenderHelper.camera.getTransform().getPosition();
-		Vector4f rotation = RenderHelper.camera.getTransform().getRotation();
+		Vector3f rotation = RenderHelper.camera.getTransform().getRotation();
+		
+		GL11.glRotatef(-rotation.getZ(), 0, 0, 1);
+		GL11.glRotatef(-rotation.getX(), 1, 0, 0);
+		GL11.glRotatef(-rotation.getY(), 0, 1, 0);
 		GL11.glTranslatef(-position.getX(), -position.getY(), -position.getZ());
-		GL11.glRotatef(-rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW());
 	}
 	
 }

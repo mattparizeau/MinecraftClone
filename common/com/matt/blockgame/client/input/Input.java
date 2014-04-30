@@ -58,6 +58,7 @@ public final class Input {
 	public static final int KEY_RSHIFT = Keyboard.KEY_RSHIFT;
 	public static final int KEY_RCTRL = Keyboard.KEY_RCONTROL;
 	public static final int KEY_RETURN = Keyboard.KEY_RETURN;
+	public static final int KEY_ESCAPE = Keyboard.KEY_ESCAPE;
 	
 	public static boolean[] keys = new boolean[MAX_KEYS];
 	public static boolean[] mouse_buttons = new boolean[MAX_MOUSE_BTN];
@@ -132,6 +133,26 @@ public final class Input {
 	public static boolean getMouseUp(int button)
 	{
 		return !getMouseButton(button) && mouse_buttons[button];
+	}
+	
+	public static float getMouseDX()
+	{
+		return Mouse.getDX();
+	}
+	
+	public static float getMouseDY()
+	{
+		return Mouse.getDY();
+	}
+	
+	public static boolean isLocked()
+	{
+		return Mouse.isGrabbed();
+	}
+	
+	public static void setLocked(boolean locked)
+	{
+		Mouse.setGrabbed(locked);
 	}
 	
 }

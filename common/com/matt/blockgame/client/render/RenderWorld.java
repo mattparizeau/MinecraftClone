@@ -25,6 +25,9 @@ public final class RenderWorld {
 	
 	public static final void renderChunk(World world, Chunk chunk, int x, int z)
 	{
+		//BlockMesh mesh = new BlockMesh();
+		//mesh.rebuild(chunk, x, z);
+		//mesh.draw();
 		for (int i = 0; i < Chunk.CHUNK_SIZE; i++)
 		{
 			for (int j = 0; j < Chunk.CHUNK_HEIGHT; j++)

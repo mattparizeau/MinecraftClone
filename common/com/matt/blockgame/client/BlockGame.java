@@ -1,11 +1,6 @@
 package com.matt.blockgame.client;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
-
 import com.matt.blockgame.boot.BootStrap;
-import com.matt.blockgame.client.input.Input;
 import com.matt.blockgame.client.render.Camera;
 import com.matt.blockgame.client.render.RenderHelper;
 import com.matt.blockgame.client.render.RenderWorld;
@@ -26,8 +21,8 @@ public class BlockGame {
 	{
 		BootStrap.boot();
 		this.camera = new Camera();
-		this.camera.getTransform().getPosition().set(0, 4, 16);
-		this.camera.getTransform().getRotation().set(180, 0, 1, 0);
+		this.camera.getTransform().getPosition().set(0, 18, 0);
+		this.camera.getTransform().getRotation().set(0, 180, 0);
 		RenderHelper.setCamera(this.camera);
 		this.world = new World();
 		//block = new BlockObject(Blocks.stone);
@@ -36,25 +31,14 @@ public class BlockGame {
 	
 	public void input()
 	{
-		if (Input.getKey(Input.KEY_W))
-		{
-			this.camera.getTransform().getPosition().translate(0, 0, -0.5f);
-		} else if (Input.getKey(Input.KEY_S))
-		{
-			this.camera.getTransform().getPosition().translate(0, 0, 0.5f);
-		} else if (Input.getKey(Input.KEY_A))
-		{
-			this.camera.getTransform().getPosition().translate(-0.5f, 0, 0);
-		} else if (Input.getKey(Input.KEY_D))
-		{
-			this.camera.getTransform().getPosition().translate(0.5f, 0, 0);
-		}
+		this.camera.input();
 	}
 	
 	//float rot = 0;
 	
 	public void update()
 	{
+		this.camera.update();
 		/*rot+=0.05;
 		if (rot > 360)
 			rot = 0;
