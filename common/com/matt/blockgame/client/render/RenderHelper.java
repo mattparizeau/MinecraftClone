@@ -23,7 +23,7 @@ public final class RenderHelper {
 		return RenderHelper.camera;
 	}
 	
-	public static final void initOpenGL(Window window, float fov)
+	public static final void initOpenGL3D(Window window, float fov)
 	{
 		//FloatBuffer buffer = BufferUtils.createFloatBuffer(4);
 		glEnable(GL_CULL_FACE);
@@ -55,6 +55,20 @@ public final class RenderHelper {
 		glFogf(GL_FOG_END, 5.0f);
 		
 		glClearColor(0f, 0.4f, 0.5f, 1.0f);
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	}
+	
+	public static final void initOpenGL2D(Window window)
+	{
+		
+		glEnable(GL_TEXTURE_2D);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(0, window.getWidth(), window.getHeight(), 0, -1, 1);
+		//GLU.gluPerspective(fov, (float)window.getWidth() / (float)window.getHeight(), 0.1f, 100.0f);
+		glMatrixMode(GL_MODELVIEW);
+		glDisable(GL_DEPTH_TEST);
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	}
 	
 	public static final void clearScreen()

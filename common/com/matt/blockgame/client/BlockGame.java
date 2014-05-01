@@ -2,6 +2,7 @@ package com.matt.blockgame.client;
 
 import com.matt.blockgame.boot.BootStrap;
 import com.matt.blockgame.client.render.Camera;
+import com.matt.blockgame.client.render.RenderGui;
 import com.matt.blockgame.client.render.RenderHelper;
 import com.matt.blockgame.client.render.RenderWorld;
 import com.matt.blockgame.common.world.World;
@@ -51,6 +52,11 @@ public class BlockGame {
 		RenderHelper.resetCamera();
 		
 		RenderWorld.renderWorld(world, camera);
+	}
+	
+	public void renderGui()
+	{
+		RenderGui.renderGui();
 	}
 	
 	public void dispose()

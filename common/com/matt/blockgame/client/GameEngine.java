@@ -26,7 +26,6 @@ public final class GameEngine {
 	
 	public void start()
 	{
-		RenderHelper.initOpenGL(window, 45);
 		this.game.init();
 		
 		long lastTime = System.nanoTime();
@@ -86,6 +85,9 @@ public final class GameEngine {
 	public void render()
 	{
 		RenderHelper.clearScreen();
+		RenderHelper.initOpenGL2D(window);
+		this.game.renderGui();
+		RenderHelper.initOpenGL3D(window, 45);
 		this.game.render();
 	}
 	
