@@ -20,10 +20,7 @@ public class ChunkLocation {
 		
 		ChunkLocation loc = (ChunkLocation)o;
 		
-		boolean equal = this.x == loc.x && this.z == loc.z;
-		//if (equal)
-		//	System.out.println("Equal");
-		return equal;
+		return this.x == loc.x && this.z == loc.z;
 	}
 	
 	@Override

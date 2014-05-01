@@ -1,5 +1,5 @@
 package com.matt.blockgame.common.world;
 
-public enum Direction {
+public enum GlobalDirection {
 	NORTH, SOUTH, EAST, WEST, UP, DOWN
 }

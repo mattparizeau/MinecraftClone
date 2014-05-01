@@ -1,4 +1,7 @@
-package com.matt.blockgame.client.render;
+package com.matt.blockgame.client.render.material;
+
+import com.matt.blockgame.client.render.material.texture.Texture;
+import com.matt.blockgame.common.blocks.Block;
 
 public class BlockMaterial {
 	
@@ -8,6 +11,11 @@ public class BlockMaterial {
 	private RenderMaterial right;
 	private RenderMaterial front;
 	private RenderMaterial back;
+	
+	public BlockMaterial(Block block)
+	{
+		this(new RenderMaterial(block.getColor(), Texture.loadTexture(block.getTextureName() + ".png")));
+	}
 	
 	public BlockMaterial(RenderMaterial material)
 	{

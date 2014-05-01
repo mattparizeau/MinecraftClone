@@ -1,7 +1,8 @@
-package com.matt.blockgame.client.render;
+package com.matt.blockgame.common.entities;
 
 import com.matt.blockgame.client.input.Input;
 import com.matt.blockgame.common.game.Entity;
+import com.matt.blockgame.common.world.LocalDirection;
 
 public class Camera extends Entity {
 	
@@ -18,65 +19,37 @@ public class Camera extends Entity {
 		if (Input.isLocked())
 		{
 			if (Input.getKeyDown(Input.KEY_ESCAPE))
-			{
 				Input.setLocked(false);
-			}
 			
-			float dx = Input.getMouseDX();
-			float dy = Input.getMouseDY();
-			
-			//this.getTransform().getRotation().translate(-dy * sensitivity, -dx * sensitivity, 0);
-			yaw(-dx * sensitivity);
-			pitch(dy * sensitivity);
+			yaw(-Input.getMouseDX() * sensitivity);
+			pitch(Input.getMouseDY() * sensitivity);
 		} else {
-			if (Input.getMouseButton(0))
+			if (Input.getMouseDown(Input.MOUSE_LEFT))
 			{
 				Input.setLocked(true);
 			}
 		}
 		
 		if (Input.getKey(Input.KEY_W))
-		{
-			this.move(ObjectDirection.FORWARD, 0.5f);
-			//this.getTransform().getPosition().translate(0, 0, -0.5f);
-		}
-		
+			this.move(LocalDirection.FORWARD, 0.5f);
 		if (Input.getKey(Input.KEY_S))
-		{
-			this.move(ObjectDirection.BACKWARD, 0.5f);
-			//this.getTransform().getPosition().translate(0, 0, 0.5f);
-		}
-		
+			this.move(LocalDirection.BACKWARD, 0.5f);
 		if (Input.getKey(Input.KEY_A))
-		{
-			this.move(ObjectDirection.LEFT, 0.5f);
-			//this.getTransform().getPosition().translate(-0.5f, 0, 0);
-		}
-		
+			this.move(LocalDirection.LEFT, 0.5f);
 		if (Input.getKey(Input.KEY_D))
-		{
-			this.move(ObjectDirection.RIGHT, 0.5f);
-			//this.getTransform().getPosition().translate(0.5f, 0, 0);
-		}
-		
+			this.move(LocalDirection.RIGHT, 0.5f);
 		if (Input.getKey(Input.KEY_SPACE))
-		{
-			this.move(ObjectDirection.UP, 0.5f);
-		}
-		
+			this.move(LocalDirection.UP, 0.5f);
 		if (Input.getKey(Input.KEY_LSHIFT))
-		{
-			this.move(ObjectDirection.DOWN, 0.5f);
-		}
+			this.move(LocalDirection.DOWN, 0.5f);
 	}
 	
-	protected void move(ObjectDirection direction, float amount)
+	protected void move(LocalDirection direction, float amount)
 	{
 		float x = this.getTransform().getPosition().getX();
 		float y = this.getTransform().getPosition().getY();
 		float z = this.getTransform().getPosition().getZ();
 		float yaw = -this.getTransform().getRotation().getY();
-		//float pitch = this.getTransform().getRotation().getX();
 		
 		switch (direction)
 		{
@@ -104,7 +77,6 @@ public class Camera extends Entity {
 			break;
 		default:
 			break;
-		
 		}
 		
 		this.getTransform().getPosition().set(x, y, z);

@@ -4,7 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.util.HashMap;
 
-import com.matt.blockgame.client.BlockObject;
+import com.matt.blockgame.client.render.material.BlockMaterial;
 import com.matt.blockgame.common.blocks.Block;
 import com.matt.blockgame.common.world.World;
 
@@ -25,8 +25,6 @@ public final class RenderBlocks {
 		
 		if (block == null || !RenderBlocks.isBlockVisible(world, block, x, y, z))
 			return;
-		//BlockObject blockObject = new BlockObject(block);
-		//blockObject.getTransform().getPosition().set(x, y, z);
 			
 			glPushMatrix();
 			{
@@ -36,42 +34,15 @@ public final class RenderBlocks {
 				glCallList(lists.get(block));
 			}
 			glPopMatrix();
-		//return RenderBlocks.getRenderBlock(world, blockObject);
 	}
 	
-	/*public static final int getRenderBlock(World world, BlockObject blockObject)
-	{
-		//RenderHelper.resetCamera();
-		Vector3f pos = blockObject.getTransform().getPosition();
-		//Vector4f rot = blockObject.getTransform().getRotation();
-		//glTranslatef(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F);
-		//glTranslatef(pos.getX(), pos.getY(), pos.getZ());
-		//glTranslatef(pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
-		//glRotatef(rot.getX(), rot.getY(), rot.getZ(), rot.getW());
-		//glTranslatef(-0.5F, -0.5F, -0.5F);
-		
-		return (RenderBlocks.getList(blockObject, new FaceMeta().calculate(world, (int)pos.getX(), (int)pos.getY(), (int)pos.getZ())));
-	}*/
-	
-	public static final int getList(BlockMaterial material, FaceMeta meta)
+	public static final int getList(BlockMaterial material)
 	{
 		int displayList = glGenLists(1);
 		glNewList(displayList, GL_COMPILE);
 		
-		//RenderHelper.resetCamera();
-		//Vector3f pos = blockObject.getTransform().getPosition();
-		//Vector4f rot = blockObject.getTransform().getRotation();
-		//glTranslatef(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F);
-		//glTranslatef(pos.getX(), pos.getY(), pos.getZ());
-		//glTranslatef(pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
-		//System.out.println("Meta: " + meta.toString());
-		//BlockMaterial material = blockObject.getMaterial();
-		//if (true)
-		//	return;
 		glBegin(GL_QUADS);
 		{
-			if (meta.getFront())
-			{
 				material.getFront().bind();
 				glNormal3f(0, 0, 1);
 				glTexCoord2f(1, 0);
@@ -82,10 +53,7 @@ public final class RenderBlocks {
 				glVertex3f(0, 1, 0);
 				glTexCoord2f(0, 0);
 				glVertex3f(1, 1, 0);
-			}
 			
-			if (meta.getBack())
-			{
 				material.getBack().bind();
 				glNormal3f(0, 0, -1);
 				glTexCoord2f(1, 1);
@@ -96,10 +64,7 @@ public final class RenderBlocks {
 				glVertex3f(1, 1, 1);
 				glTexCoord2f(1, 0);
 				glVertex3f(0, 1, 1);
-			}
-			
-			if (meta.getTop())
-			{
+				
 				material.getTop().bind();
 				glNormal3f(0, -1, 0);
 				glTexCoord2f(0, 1);
@@ -110,10 +75,7 @@ public final class RenderBlocks {
 				glVertex3f(0, 1, 1);
 				glTexCoord2f(0, 0);
 				glVertex3f(1, 1, 1);
-			}
 			
-			if (meta.getBottom())
-			{
 				material.getBottom().bind();
 				glNormal3f(0, 1, 0);
 				glTexCoord2f(1, 1);
@@ -124,10 +86,7 @@ public final class RenderBlocks {
 				glVertex3f(0, 0, 0);
 				glTexCoord2f(0, 1);
 				glVertex3f(1, 0, 0);
-			}
 			
-			if (meta.getLeft())
-			{
 				material.getLeft().bind();
 				glNormal3f(-1, 0, 0);
 				glTexCoord2f(0, 1);
@@ -138,10 +97,7 @@ public final class RenderBlocks {
 				glVertex3f(1, 1, 0);
 				glTexCoord2f(0, 0);
 				glVertex3f(1, 1, 1);
-			}
 			
-			if (meta.getRight())
-			{
 				material.getRight().bind();
 				glNormal3f(1, 0, 0);
 				glTexCoord2f(1, 1);
@@ -152,9 +108,6 @@ public final class RenderBlocks {
 				glVertex3f(0, 1, 1);
 				glTexCoord2f(0, 1);
 				glVertex3f(0, 1, 0);
-			}
-			
-			
 		}
 		glEnd();
 		glEndList();
@@ -168,9 +121,9 @@ public final class RenderBlocks {
 		{
 			Block block = (Block)o;
 			
-			BlockMaterial material = new BlockObject(block).getMaterial();
+			BlockMaterial material = new BlockMaterial(block);
 			
-			lists.put(block, getList(material, new FaceMeta()));
+			lists.put(block, getList(material));
 		}
 		
 		initialized = true;

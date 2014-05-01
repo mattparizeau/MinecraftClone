@@ -1,6 +1,6 @@
 package com.matt.blockgame.common.blocks;
 
-import com.matt.blockgame.client.render.MaterialList;
+import com.matt.blockgame.client.render.material.MaterialList;
 import com.matt.blockgame.common.blocks.materials.Material;
 import com.matt.blockgame.common.registry.RegistryNamespaced;
 import com.matt.blockgame.common.registry.RegistryNamespacedDefault;

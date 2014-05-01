@@ -1,7 +1,8 @@
-package com.matt.blockgame.client.render;
+package com.matt.blockgame.client.render.material.texture;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.IntBuffer;
 
 import javax.imageio.ImageIO;
@@ -23,10 +24,13 @@ public final class Texture {
 	}
 	
 	public static final Texture loadTexture(String path)
-	{
+	{	
 		BufferedImage image = null;
 		try {
-			image = ImageIO.read((Texture.class.getClassLoader().getResourceAsStream("textures/" + path)));
+			InputStream is = (Texture.class.getClassLoader().getResourceAsStream("textures/" + path));
+			if (is == null)
+				return null;
+			image = ImageIO.read(is);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
@@ -52,8 +56,6 @@ public final class Texture {
 		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
 		
 		GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGB, width, height, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buffer);
-		
-		//GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 		
 		return new Texture(id, width, height);
 	}

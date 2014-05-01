@@ -1,4 +1,5 @@
-package com.matt.blockgame.client.render;
+package com.matt.blockgame.client.render.material;
+
 
 public final class MaterialList {
 	

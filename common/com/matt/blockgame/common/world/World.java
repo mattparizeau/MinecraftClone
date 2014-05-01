@@ -25,13 +25,6 @@ public class World {
 		this.seed = seed;
 		this.random = new Random(seed);
 		this.chunks = new HashMap<ChunkLocation, Chunk>();
-		/*this.createChunkAt(0, 0);
-		this.createChunkAt(0, 1);
-		this.createChunkAt(1, 0);
-		this.createChunkAt(1, 1);
-		this.createChunkAt(0, -1);
-		this.createChunkAt(-1, -1);
-		this.createChunkAt(-1, 0);*/
 	}
 	
 	public void createChunkAt(int x, int z)
@@ -61,16 +54,14 @@ public class World {
 	
 	public Block getBlock(int x, int y, int z)
 	{
-		//System.out.println("x: " + x + ", y: " + y + ", z: " + z);
 		Chunk chunk = this.getChunkFromBlockCoords(x, z);
 		if (chunk == null)
 			return Blocks.air;
 		Block block = chunk.getBlock(x & 0xF, y, z & 0xF);
-		//System.out.println("Texture: " + block.getTextureName());
 		return block;
 	}
 	
-	public Block getBlockFromDirection(int x, int y, int z, Direction direction)
+	public Block getBlockFromDirection(int x, int y, int z, GlobalDirection direction)
 	{
 		switch (direction)
 		{
@@ -94,14 +85,12 @@ public class World {
 	
 	public boolean isBlockSurrounded(int x, int y, int z)
 	{
-		for (Direction direction : Direction.values())
+		for (GlobalDirection direction : GlobalDirection.values())
 		{
 			Block block = this.getBlockFromDirection(x, y, z, direction);
 			if (!block.isVisible())
 				return false;
 		}
-		//if (x == 15)
-		//	System.out.println("{" + x + ", " + y + ", " + z + "}");
 		return true;
 	}
 	

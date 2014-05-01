@@ -1,6 +1,8 @@
-package com.matt.blockgame.client.render;
+package com.matt.blockgame.client.render.material;
 
 import org.lwjgl.opengl.GL11;
+
+import com.matt.blockgame.client.render.material.texture.Texture;
 
 public class RenderMaterial {
 	

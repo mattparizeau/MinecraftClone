@@ -9,8 +9,8 @@ import org.lwjgl.input.Mouse;
  */
 public final class Input {
 	
-	public static final int MAX_KEYS = 256;
-	public static final int MAX_MOUSE_BTN = 3;
+	private static final int MAX_KEYS = 256;
+	private static final int MAX_MOUSE_BTN = 3;
 	
 	public static final int KEY_0 = Keyboard.KEY_0;
 	public static final int KEY_1 = Keyboard.KEY_1;
@@ -59,6 +59,10 @@ public final class Input {
 	public static final int KEY_RCTRL = Keyboard.KEY_RCONTROL;
 	public static final int KEY_RETURN = Keyboard.KEY_RETURN;
 	public static final int KEY_ESCAPE = Keyboard.KEY_ESCAPE;
+	
+	public static final int MOUSE_LEFT = 0;
+	public static final int MOUSE_RIGHT = 1;
+	public static final int MOUSE_MIDDLE = 2;
 	
 	public static boolean[] keys = new boolean[MAX_KEYS];
 	public static boolean[] mouse_buttons = new boolean[MAX_MOUSE_BTN];
@@ -135,21 +139,37 @@ public final class Input {
 		return !getMouseButton(button) && mouse_buttons[button];
 	}
 	
+	/**
+	 * Get mouse movement on the x-axis
+	 * @return mouse movement on the x-axis
+	 */
 	public static float getMouseDX()
 	{
 		return Mouse.getDX();
 	}
 	
+	/**
+	 * Get mouse movement on the y-axis
+	 * @return mouse movement on the y-axis
+	 */
 	public static float getMouseDY()
 	{
 		return Mouse.getDY();
 	}
 	
+	/**
+	 * Check if the mouse is locked
+	 * @return whether or not the mouse is locked
+	 */
 	public static boolean isLocked()
 	{
 		return Mouse.isGrabbed();
 	}
 	
+	/**
+	 * Set the mouse to be locked
+	 * @param locked
+	 */
 	public static void setLocked(boolean locked)
 	{
 		Mouse.setGrabbed(locked);

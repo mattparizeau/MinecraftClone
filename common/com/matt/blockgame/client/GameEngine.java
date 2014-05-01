@@ -85,10 +85,11 @@ public final class GameEngine {
 	public void render()
 	{
 		RenderHelper.clearScreen();
-		RenderHelper.initOpenGL2D(window);
-		this.game.renderGui();
+		
 		RenderHelper.initOpenGL3D(window, 45);
 		this.game.render();
+		RenderHelper.initOpenGL2D(window);
+		this.game.renderGui();
 	}
 	
 	public void stop()
