@@ -119,6 +119,8 @@ public class Camera extends Entity {
 	protected void pitch(float amount)
 	{
 		float pitch = this.getTransform().getRotation().getX();
+		if ((pitch > 90 && amount > 0) || (pitch < -90 && amount < 0))
+			return;
 		this.getTransform().getRotation().setX(pitch + amount);
 	}
 	

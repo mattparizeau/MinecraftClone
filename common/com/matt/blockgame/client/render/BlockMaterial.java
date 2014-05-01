@@ -9,9 +9,9 @@ public class BlockMaterial {
 	private RenderMaterial front;
 	private RenderMaterial back;
 	
-	public BlockMaterial(RenderMaterial color)
+	public BlockMaterial(RenderMaterial material)
 	{
-		this(color, color, color, color, color, color);
+		this(material, material, material, material, material, material);
 	}
 	
 	public BlockMaterial(RenderMaterial top, RenderMaterial bottom, RenderMaterial left, RenderMaterial right, RenderMaterial front, RenderMaterial back)

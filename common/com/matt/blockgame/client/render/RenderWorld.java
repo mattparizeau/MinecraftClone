@@ -19,7 +19,7 @@ public final class RenderWorld {
 			Chunk chunk = chunks[i];
 			ChunkLocation location = locations[i];
 			
-			RenderWorld.renderChunk(world, chunk, location.getX(), location.getZ());
+			RenderWorld.renderChunk(world, chunk, location.getX() * 16, location.getZ() * 16);
 		}
 	}
 	

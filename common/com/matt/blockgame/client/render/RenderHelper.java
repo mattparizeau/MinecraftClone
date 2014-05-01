@@ -22,8 +22,8 @@ public final class RenderHelper {
 	
 	public static final void initOpenGL(Window window, float fov)
 	{
-		//glEnable(GL_CULL_FACE);
-		//glCullFace(GL_BACK);
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_COLOR_ARRAY);
 		glEnable(GL_TEXTURE_2D);

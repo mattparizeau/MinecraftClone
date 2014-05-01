@@ -29,6 +29,9 @@ public class World {
 		this.createChunkAt(0, 1);
 		this.createChunkAt(1, 0);
 		this.createChunkAt(1, 1);
+		this.createChunkAt(0, -1);
+		this.createChunkAt(-1, -1);
+		this.createChunkAt(-1, 0);
 	}
 	
 	public void createChunkAt(int x, int z)
@@ -65,6 +68,41 @@ public class World {
 		Block block = chunk.getBlock(x & 0xF, y, z & 0xF);
 		//System.out.println("Texture: " + block.getTextureName());
 		return block;
+	}
+	
+	public Block getBlockFromDirection(int x, int y, int z, Direction direction)
+	{
+		switch (direction)
+		{
+		case DOWN:
+			return this.getBlock(x, y-1, z);
+		case EAST:
+			return this.getBlock(x-1, y, z);
+		case NORTH:
+			return this.getBlock(x, y, z+1);
+		case SOUTH:
+			return this.getBlock(x, y, z-1);
+		case UP:
+			return this.getBlock(x, y+1, z);
+		case WEST:
+			return this.getBlock(x+1, y, z);
+		default:
+			return Blocks.air;
+		
+		}
+	}
+	
+	public boolean isBlockSurrounded(int x, int y, int z)
+	{
+		for (Direction direction : Direction.values())
+		{
+			Block block = this.getBlockFromDirection(x, y, z, direction);
+			if (!block.isVisible())
+				return false;
+		}
+		//if (x == 15)
+		//	System.out.println("{" + x + ", " + y + ", " + z + "}");
+		return true;
 	}
 	
 }

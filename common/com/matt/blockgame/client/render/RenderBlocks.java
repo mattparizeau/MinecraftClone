@@ -13,19 +13,29 @@ public final class RenderBlocks {
 	public static HashMap<Block, Integer> lists = new HashMap<Block, Integer>();
 	private static boolean initialized = false;
 	
+	protected static final boolean isBlockVisible(World world, Block block, int x, int y, int z)
+	{
+		return !world.isBlockSurrounded(x, y, z) && block.isVisible();
+	}
+	
 	public static final void renderBlock(World world, Block block, int x, int y, int z)
 	{
 		if (!initialized)
 			initModels();
 		
-		if (block == null || !block.isVisible())
+		if (block == null || !RenderBlocks.isBlockVisible(world, block, x, y, z))
 			return;
 		//BlockObject blockObject = new BlockObject(block);
 		//blockObject.getTransform().getPosition().set(x, y, z);
-		RenderHelper.resetCamera();
-		glTranslatef(x, y, z);
-		glCallList(lists.get(block));
-		
+			
+			glPushMatrix();
+			{
+				RenderHelper.resetCamera();
+				glEnable(GL_TEXTURE_2D);
+				glTranslatef(x, y, z);
+				glCallList(lists.get(block));
+			}
+			glPopMatrix();
 		//return RenderBlocks.getRenderBlock(world, blockObject);
 	}
 	
@@ -63,80 +73,88 @@ public final class RenderBlocks {
 			if (meta.getFront())
 			{
 				material.getFront().bind();
+				glNormal3f(0, 0, 1);
 				glTexCoord2f(1, 0);
 				glVertex3f(1, 0, 0);
 				glTexCoord2f(1, 1);
-				glVertex3f(1, 1, 0);
+				glVertex3f(0, 0, 0);
 				glTexCoord2f(0, 1);
 				glVertex3f(0, 1, 0);
 				glTexCoord2f(0, 0);
-				glVertex3f(0, 0, 0);
+				glVertex3f(1, 1, 0);
 			}
 			
 			if (meta.getBack())
 			{
 				material.getBack().bind();
+				glNormal3f(0, 0, -1);
 				glTexCoord2f(1, 1);
-				glVertex3f(1, 1, 1);
-				glTexCoord2f(0, 1);
-				glVertex3f(0, 1, 1);
-				glTexCoord2f(0, 0);
 				glVertex3f(0, 0, 1);
-				glTexCoord2f(1, 0);
-				glVertex3f(1, 0, 1);
-			}
-			
-			if (meta.getLeft())
-			{
-				material.getLeft().bind();
-				glTexCoord2f(0, 1);
-				glVertex3f(0, 0, 1);
-				glTexCoord2f(1, 1);
-				glVertex3f(0, 1, 1);
-				glTexCoord2f(1, 0);
-				glVertex3f(0, 1, 0);
-				glTexCoord2f(0, 0);
-				glVertex3f(0, 0, 0);
-			}
-			
-			if (meta.getRight())
-			{
-				material.getRight().bind();
-				glTexCoord2f(1, 1);
-				glVertex3f(1, 1, 1);
-				glTexCoord2f(1, 0);
-				glVertex3f(1, 1, 0);
-				glTexCoord2f(0, 0);
-				glVertex3f(1, 0, 0);
 				glTexCoord2f(0, 1);
 				glVertex3f(1, 0, 1);
+				glTexCoord2f(0, 0);
+				glVertex3f(1, 1, 1);
+				glTexCoord2f(1, 0);
+				glVertex3f(0, 1, 1);
 			}
 			
 			if (meta.getTop())
 			{
 				material.getTop().bind();
+				glNormal3f(0, -1, 0);
 				glTexCoord2f(0, 1);
-				glVertex3f(0, 1, 1);
-				glTexCoord2f(1, 1);
-				glVertex3f(1, 1, 1);
-				glTexCoord2f(1, 0);
 				glVertex3f(1, 1, 0);
-				glTexCoord2f(0, 0);
+				glTexCoord2f(1, 1);
 				glVertex3f(0, 1, 0);
+				glTexCoord2f(1, 0);
+				glVertex3f(0, 1, 1);
+				glTexCoord2f(0, 0);
+				glVertex3f(1, 1, 1);
 			}
 			
 			if (meta.getBottom())
 			{
 				material.getBottom().bind();
+				glNormal3f(0, 1, 0);
 				glTexCoord2f(1, 1);
 				glVertex3f(1, 0, 1);
 				glTexCoord2f(1, 0);
-				glVertex3f(1, 0, 0);
+				glVertex3f(0, 0, 1);
 				glTexCoord2f(0, 0);
 				glVertex3f(0, 0, 0);
 				glTexCoord2f(0, 1);
-				glVertex3f(0, 0, 1);
+				glVertex3f(1, 0, 0);
 			}
+			
+			if (meta.getLeft())
+			{
+				material.getLeft().bind();
+				glNormal3f(-1, 0, 0);
+				glTexCoord2f(0, 1);
+				glVertex3f(1, 0, 1);
+				glTexCoord2f(1, 1);
+				glVertex3f(1, 0, 0);
+				glTexCoord2f(1, 0);
+				glVertex3f(1, 1, 0);
+				glTexCoord2f(0, 0);
+				glVertex3f(1, 1, 1);
+			}
+			
+			if (meta.getRight())
+			{
+				material.getRight().bind();
+				glNormal3f(1, 0, 0);
+				glTexCoord2f(1, 1);
+				glVertex3f(0, 0, 0);
+				glTexCoord2f(1, 0);
+				glVertex3f(0, 0, 1);
+				glTexCoord2f(0, 0);
+				glVertex3f(0, 1, 1);
+				glTexCoord2f(0, 1);
+				glVertex3f(0, 1, 0);
+			}
+			
+			
 		}
 		glEnd();
 		glEndList();
