@@ -21,7 +21,7 @@ public class BlockGame {
 	{
 		BootStrap.boot();
 		this.camera = new Camera();
-		this.camera.getTransform().getPosition().set(0, 18, 0);
+		this.camera.getTransform().getPosition().set(0, 68, 0);
 		this.camera.getTransform().getRotation().set(0, 180, 0);
 		RenderHelper.setCamera(this.camera);
 		this.world = new World();
@@ -50,7 +50,7 @@ public class BlockGame {
 		//RenderBlocks.renderBlock(block);
 		RenderHelper.resetCamera();
 		
-		RenderWorld.renderWorld(world);
+		RenderWorld.renderWorld(world, camera);
 	}
 	
 	public void dispose()

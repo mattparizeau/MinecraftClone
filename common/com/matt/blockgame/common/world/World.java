@@ -12,7 +12,7 @@ import com.matt.blockgame.common.world.chunk.ChunkLocation;
 public class World {
 	
 	protected Map<ChunkLocation, Chunk> chunks;
-	protected Random random;
+	public Random random;
 	protected long seed;
 	
 	public World()
@@ -25,18 +25,18 @@ public class World {
 		this.seed = seed;
 		this.random = new Random(seed);
 		this.chunks = new HashMap<ChunkLocation, Chunk>();
-		this.createChunkAt(0, 0);
+		/*this.createChunkAt(0, 0);
 		this.createChunkAt(0, 1);
 		this.createChunkAt(1, 0);
 		this.createChunkAt(1, 1);
 		this.createChunkAt(0, -1);
 		this.createChunkAt(-1, -1);
-		this.createChunkAt(-1, 0);
+		this.createChunkAt(-1, 0);*/
 	}
 	
 	public void createChunkAt(int x, int z)
 	{
-		this.chunks.put(new ChunkLocation(x, z), new Chunk().generate());
+		this.chunks.put(new ChunkLocation(x, z), new Chunk(this).generate());
 	}
 	
 	public Chunk getChunk(int x, int z)

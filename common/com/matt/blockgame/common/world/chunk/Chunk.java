@@ -2,6 +2,7 @@ package com.matt.blockgame.common.world.chunk;
 
 import com.matt.blockgame.boot.Blocks;
 import com.matt.blockgame.common.blocks.Block;
+import com.matt.blockgame.common.world.World;
 
 public class Chunk {
 	
@@ -9,9 +10,11 @@ public class Chunk {
 	public static final int CHUNK_SIZE = 16;
 	
 	private Block[][][] blocks;
+	private World world;
 	
-	public Chunk()
+	public Chunk(World world)
 	{
+		this.world = world;
 		this.blocks = new Block[CHUNK_SIZE][CHUNK_HEIGHT][CHUNK_SIZE];
 	}
 	
@@ -19,13 +22,13 @@ public class Chunk {
 	{
 		for (int i = 0; i < 16; i++)
 		{
-			for (int j = 0; j < 16; j++)
+			for (int j = 0; j < 66; j++)
 			{
 				for (int k = 0; k < 16; k++)
 				{
-					if (j == 15)
+					if (j == 65)
 						this.setBlock(i, j, k, Blocks.grass);
-					else if (j > 11)
+					else if (j > 60)
 						this.setBlock(i, j, k, Blocks.dirt);
 					else
 						this.setBlock(i, j, k, Blocks.stone);
@@ -53,6 +56,11 @@ public class Chunk {
 	public Block[][][] getBlocks()
 	{
 		return this.blocks;
+	}
+	
+	public World getWorld()
+	{
+		return this.world;
 	}
 	
 }

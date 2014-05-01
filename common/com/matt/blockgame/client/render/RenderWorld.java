@@ -1,25 +1,54 @@
 package com.matt.blockgame.client.render;
 
 import com.matt.blockgame.common.blocks.Block;
+import com.matt.blockgame.common.game.Entity;
 import com.matt.blockgame.common.world.World;
 import com.matt.blockgame.common.world.chunk.Chunk;
-import com.matt.blockgame.common.world.chunk.ChunkLocation;
 
 public final class RenderWorld {
 	
-	public static final void renderWorld(World world)
+	public static final float RENDER_DISTANCE = 4;
+	
+	public static final void renderWorld(World world, Entity entity)
 	{
-		Chunk[] chunks = new Chunk[world.getChunks().size()];
-		world.getChunks().values().toArray(chunks);
-		ChunkLocation[] locations = new ChunkLocation[world.getChunks().size()];
-		world.getChunks().keySet().toArray(locations);
+		//Chunk[] chunks = new Chunk[world.getChunks().size()];
+		//world.getChunks().values().toArray(chunks);
+		//ChunkLocation[] locations = new ChunkLocation[world.getChunks().size()];
+		//world.getChunks().keySet().toArray(locations);
 		
-		for (int i = 0; i < world.getChunks().size(); i++)
+		int x = (int)entity.getTransform().getPosition().getX() >> 4;
+		int z = (int)entity.getTransform().getPosition().getZ() >> 4;
+		
+		int x1 = x - ((int)RENDER_DISTANCE / 2);
+		int x2 = x + ((int)RENDER_DISTANCE / 2);
+		
+		int z1 = z - ((int)RENDER_DISTANCE / 2);
+		int z2 = z + ((int)RENDER_DISTANCE / 2);
+		
+		for (int i = x1; i < x2; i++)
 		{
-			Chunk chunk = chunks[i];
-			ChunkLocation location = locations[i];
+			for (int j = z1; j < z2; j++)
+			{
+				Chunk chunk = world.getChunk(i, j);
+				if (chunk == null)
+				{
+					world.createChunkAt(i, j);
+					chunk = world.getChunk(i, j);
+				}
+			//Chunk chunk = chunks[i];
+			//ChunkLocation location = locations[i];
+			//int eX = (int)entity.getTransform().getPosition().getX() >> 4;
+			//int eZ = (int)entity.getTransform().getPosition().getZ() >> 4;
+			//int cX = location.getX();
+			//int cZ = location.getZ();
 			
-			RenderWorld.renderChunk(world, chunk, location.getX() * 16, location.getZ() * 16);
+			//double eLen = Math.sqrt(eX * eX + eZ * eZ);
+			//double cLen = Math.sqrt(cX * cX + cZ * cZ);
+			//double distance = Math.abs(cLen - eLen);
+			
+			//if (distance < RENDER_DISTANCE)
+				RenderWorld.renderChunk(world, chunk, i * 16, j * 16);
+			}
 		}
 	}
 	

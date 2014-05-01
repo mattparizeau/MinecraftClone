@@ -29,14 +29,45 @@ public final class GameEngine {
 		RenderHelper.initOpenGL(window, 45);
 		this.game.init();
 		
+		long lastTime = System.nanoTime();
+		int frames = 0;
+		int updates = 0;
+		long unprocessedTime = 0;
+		long frameTime = 0;
+		float ns = 1.0f / 60.0f;
+		
 		while(true)
 		{
-			if (window.isCloseRequested())
-				this.stop();
+			long startTime = System.nanoTime();
+			long passedTime = startTime - lastTime;
+			lastTime = startTime;
 			
-			this.input();
-			this.update();
+			unprocessedTime += passedTime / (double)ns;
+			frameTime += passedTime;
+			
+			while (unprocessedTime >= 1000)
+			{
+				unprocessedTime -= 1000000000L;
+				if (window.isCloseRequested())
+					this.stop();
+				
+				this.input();
+				this.update();
+				updates++;
+			
+			}
+			
+			if (frameTime >= 1000000000L)
+			{
+				String info = ("FPS: " + frames + " | UPS: " + updates);
+				window.setTitle(info);
+				frameTime = 0;
+				frames = 0;
+				updates = 0;
+			}
+			
 			this.render();
+			frames++;
 			window.update();
 		}
 	}
